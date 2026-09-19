@@ -1,12 +1,12 @@
-# WAREX — Autonomous Warehouse
+# 🤖 WAREX — Autonomous Warehouse
 
-## 🤖 AI-Powered Autonomous Warehouse Simulation
+## AI-Powered Autonomous Warehouse Simulation
 
-WAREX is an AI-powered warehouse simulation designed to manage multiple autonomous robots in a dynamic warehouse environment.
+WAREX is an AI-powered warehouse simulation designed to coordinate multiple autonomous robots in a dynamic warehouse environment.
 
-The system demonstrates intelligent robot task allocation, path planning, obstacle avoidance, battery monitoring, and task handover between robots.
+Instead of using fixed robot assignments, WAREX continuously monitors the condition of each robot and the warehouse environment, then dynamically decides which robot should perform a task.
 
-Instead of using fixed robot assignments, WAREX continuously monitors the warehouse and makes decisions based on the current condition of each robot.
+The system demonstrates intelligent task allocation, safe path planning, obstacle avoidance, battery monitoring, explainable decision-making, and intelligent task handover.
 
 ---
 
@@ -14,112 +14,87 @@ Instead of using fixed robot assignments, WAREX continuously monitors the wareho
 
 - 🤖 Multi-robot warehouse simulation
 - 📦 Automatic order generation
-- 🧠 Intelligent task allocation
+- 🧠 Intelligent AI-based task allocation
 - 🔋 Real-time battery monitoring
 - 📍 Robot location and workload tracking
-- 🚧 Dynamic obstacle avoidance
-- 🗺️ Safe path planning
+- 🚧 Dynamic obstacle detection
+- 🗺️ Safe A* path planning
 - 🔄 Intelligent task handover
 - ⚡ Charging and battery management
 - 💬 Explainable AI decisions
 - 🔁 Continuous monitoring and replanning
+- 🚨 Robot failure and recovery handling
 
 ---
 
-## 🧠 How WAREX Works
+# 🧠 How WAREX Works
 
-1. A new order arrives at the pickup station.
-2. WAREX checks the available robots.
-3. The system considers battery, workload, distance and robot availability.
-4. The most suitable robot is selected for the task.
-5. The robot travels to the required shelf using a safe route.
-6. The product is picked up and transported to the delivery station.
-7. WAREX continuously monitors the robot and environment.
-8. If a robot is blocked, fails or has low battery, the system can replan the task.
-9. Another available robot can take over the task when required.
-10. The original robot can move toward charging or recovery.
+WAREX follows a continuous decision-making loop:
 
----
+### 1️⃣ Order Received
 
-## 🚧 Dynamic Environment
+A new warehouse order is generated and sent to the WAREX AI Manager.
 
-The warehouse contains shelves and obstacles that robots must avoid.
+### 2️⃣ Observe
 
-When the environment changes, WAREX can calculate an alternative route instead of allowing the robot to move through blocked areas.
+WAREX monitors:
 
-This demonstrates how the system can adapt to changing warehouse conditions.
+- Robot battery
+- Robot location
+- Distance to task
+- Workload
+- Speed
+- Congestion
+- Robot availability
+- Environment conditions
 
----
+### 3️⃣ Calculate
 
-## 🔄 Intelligent Task Handover
+The AI Manager calculates the suitability of available robots using multiple task-related factors.
 
-One of the main features of WAREX is task handover.
+### 4️⃣ Decide
 
-For example:
+WAREX selects the most suitable available robot for the task.
 
-**Robot 1 → Low Battery**
+### 5️⃣ Command
 
-↓  
+The selected robot receives a command and begins executing the task.
 
-**WAREX detects the condition**
+### 6️⃣ Execute
 
-↓  
+The robot travels to the pickup location, reaches the required shelf, collects the product and moves toward delivery.
 
-**Robot 2 → Selected for takeover**
+### 7️⃣ Monitor
 
-↓  
+WAREX continuously monitors robot status and warehouse conditions.
 
-**Robot 2 completes the task**
+### 8️⃣ Replan
 
-↓  
+If an obstacle appears or the environment changes, WAREX calculates a new safe route using A* path planning.
 
-**Robot 1 → Charging**
+### 9️⃣ Recover
 
-This allows the task to continue instead of stopping the entire operation.
+If a robot fails or its battery becomes critically low, WAREX can select another available robot and transfer the task.
 
 ---
 
-## 💡 Why WAREX?
+# 🚧 Dynamic Environment
 
-Traditional fixed robot assignment can cause unnecessary travel, delays and inefficient battery usage.
+The warehouse contains shelves and dynamic obstacles that robots must avoid.
 
-WAREX uses continuous monitoring and decision-making to dynamically select robots and adapt to changing conditions.
+Shelves are treated as **NO-DRIVE zones**.
 
-The goal is to demonstrate an AI-based decision layer that can coordinate multiple autonomous robots in a warehouse.
-
----
-
-## ⚙️ Technologies Used
-
-- Python
-- Artificial Intelligence / Machine Learning
-- Path Planning
-- A* Algorithm
-- Pygame / Simulation Interface
-- Robot State Monitoring
-- Dynamic Task Allocation
-
----
-
-## 🏗️ System Architecture
+When an obstacle blocks the current route, WAREX detects the environmental change and triggers path replanning.
 
 ```text
-        📦 ORDERS
-            ↓
-     🧠 WAREX AI BRAIN
-            ↓
-   ┌────────┼────────┐
-   ↓        ↓        ↓
-🤖 ROBOTS  🔋 BATTERY  🚧 ENVIRONMENT
-   ↓        ↓        ↓
-   └────────┼────────┘
-            ↓
-      🎯 TASK DECISION
-            ↓
-      🗺️ PATH PLANNING
-            ↓
-       🤖 ROBOT ACTION
-            ↓
-     📊 MONITORING
-            ↓
-       🔄 REPLANNING
+Current Route
+      ↓
+🚧 Obstacle Detected
+      ↓
+🧠 WAREX Detects Change
+      ↓
+🗺️ A* Replanning
+      ↓
+New Safe Route
+      ↓
+🤖 Robot Continues Task
